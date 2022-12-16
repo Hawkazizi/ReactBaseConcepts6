@@ -1,5 +1,8 @@
-import { createRoot } from "react-dom/client";
+import React from "react";
+import ReactDOM from "react-dom";
 import App from "./App";
-const container = document.getElementById("root");
-const root = createRoot(container);
-root.render(<App tab="home" />);
+
+ReactDOM.render(<App />, document.getElementById("root"));
+
+//Challenge. Render all the notes inside notes.js as a seperate Note
+//component.

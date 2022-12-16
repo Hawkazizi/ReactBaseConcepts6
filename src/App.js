@@ -1,25 +1,21 @@
 import React from "react";
-import emojipedia from "./components/emojipedia.js";
-import Entry from "./components/Entry";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import Note from "./components/Note";
+import Notess from "./components/notes.js";
 function App() {
+  const createNote = (noteItem) => {
+    return (
+      <div className="note">
+        <Note title={noteItem.title} content={noteItem.content} />;
+      </div>
+    );
+  };
   return (
     <div>
-      <h1>
-        <span>emojipedia</span>
-      </h1>
-
-      <dl className="dictionary">
-        {emojipedia.map((emojiTh) => {
-          return (
-            <Entry
-              key={emojiTh.id}
-              emoji={emojiTh.emoji}
-              name={emojiTh.name}
-              description={emojiTh.meaning}
-            />
-          );
-        })}
-      </dl>
+      <Header />
+      {Notess.map(createNote)}
+      <Footer />
     </div>
   );
 }
