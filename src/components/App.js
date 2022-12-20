@@ -1,21 +1,31 @@
-import { useState } from "react";
-import Wrapper from "../Wrapper/Wrapper.js";
-import "./App.css";
+import React, { useState } from "react";
+
 function App() {
-  const timeUp = new Date().toLocaleTimeString();
-  const [time, setTime] = useState(timeUp);
-  console.log(time);
+  const [isSubmited, setIsSubmited] = useState("Hello");
+  const [isOver, setIsOver] = useState(false);
   const clickHandler = () => {
-    const newTimeUp = new Date().toLocaleTimeString();
-    setTime(newTimeUp);
+    setIsSubmited("Submited");
   };
+  const mouseOverHandler = () => {
+    setIsOver(true);
+  };
+  const mouseOutHandler = () => {
+    setIsOver(false);
+  };
+
   return (
-    <Wrapper>
-      <h1 className="time">{time}</h1>
-      <button className="Update" onClick={clickHandler}>
-        Update time
+    <div className="container">
+      <h1>{isSubmited}</h1>
+      <input type="text" placeholder="What's your name?" />
+      <button
+        onMouseOver={mouseOverHandler}
+        onMouseOut={mouseOutHandler}
+        onClick={clickHandler}
+        style={{ backgroundColor: isOver ? "rgba(0, 0, 0, 5)" : "white" }}
+      >
+        Submit
       </button>
-    </Wrapper>
+    </div>
   );
 }
 
