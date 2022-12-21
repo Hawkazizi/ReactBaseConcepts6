@@ -1,16 +1,38 @@
 import React, { useState } from "react";
 
 function App() {
+  const [contact, setContact] = useState({
+    fName: "",
+    lName: "",
+    email: "",
+  });
   const [isOver, setIsOver] = useState(false);
-  const [name, seName] = useState("");
-  const [heading, setHeading] = useState("");
-  const clickHandler = () => {
-    setHeading(name);
-  };
-  const changeHandler = (event) => {
-    const value = event.target.value;
-    seName(value);
-  };
+
+  function changeHandler(event) {
+    const { name, value } = event.target;
+
+    setContact((prevValue) => {
+      if (name === "fName") {
+        return {
+          fName: value,
+          lName: prevValue.lName,
+          email: prevValue.email,
+        };
+      } else if (name === "lName") {
+        return {
+          fName: prevValue.fName,
+          lName: value,
+          email: prevValue.email,
+        };
+      } else if (name === "email") {
+        return {
+          fName: prevValue.fName,
+          lName: prevValue.lName,
+          email: value,
+        };
+      }
+    });
+  }
   const mouseOverHandler = () => {
     setIsOver(true);
   };
@@ -20,21 +42,37 @@ function App() {
 
   return (
     <div className="container">
-      <h1>Hello, {heading}</h1>
-      <input
-        type="text"
-        placeholder="What's your name?"
-        onChange={changeHandler}
-        value={name}
-      />
-      <button
-        onMouseOver={mouseOverHandler}
-        onMouseOut={mouseOutHandler}
-        onClick={clickHandler}
-        style={{ backgroundColor: isOver ? "rgba(0, 0, 0, 5)" : "white" }}
-      >
-        Submit
-      </button>
+      <h1>
+        Hello {contact.fName} {contact.lName}
+      </h1>
+      <p>{contact.email}</p>
+      <form>
+        <input
+          onChange={changeHandler}
+          value={contact.fName}
+          name="fName"
+          placeholder="First Name"
+        />
+        <input
+          onChange={changeHandler}
+          value={contact.lName}
+          name="lName"
+          placeholder="Last Name"
+        />
+        <input
+          onChange={changeHandler}
+          value={contact.email}
+          name="email"
+          placeholder="Email"
+        />
+        <button
+          onMouseOver={mouseOverHandler}
+          onMouseOut={mouseOutHandler}
+          style={{ backgroundColor: isOver ? "black" : "white" }}
+        >
+          Submit
+        </button>
+      </form>
     </div>
   );
 }
