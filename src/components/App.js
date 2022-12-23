@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-
+import Items from "./items";
 function App() {
   const [inputItems, setInputItems] = useState("");
-  const [items, setItems] = useState(["enter a value"]);
+  const [items, setItems] = useState(["hi"]);
+
   const changeHandler = (event) => {
     const value = event.target.value;
     setInputItems(value);
@@ -13,6 +14,14 @@ function App() {
       return [inputItems, ...prevItems];
     });
     setInputItems("");
+  };
+  const deleteHandeler = (id) => {
+    console.log(id);
+    setItems((prev) => {
+      return prev.filter((item, index) => {
+        return index !== id;
+      });
+    });
   };
   return (
     <div className="container">
@@ -27,10 +36,16 @@ function App() {
       </div>
       <div>
         <ul>
-          {items.map((todoItem) => (
-            <li>{todoItem}</li>
+          {items.map((todoItem, index) => (
+            <Items
+              key={index}
+              id={index}
+              text={todoItem}
+              delete={deleteHandeler}
+            />
           ))}
         </ul>
+        <h4>DoubleClick:remove//singleClick:line-Through</h4>
       </div>
     </div>
   );
